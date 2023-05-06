@@ -21,7 +21,7 @@ def get_youtube_datas(youtube, df, video_ids):
 
         video_data = response['items'][0]
         temp = {}
-
+        temp['videoId'] = id
         temp['publishedAt'] = convert_time(video_data['snippet']['publishedAt'])
         temp['title'] = video_data['snippet']['title']
         temp['description'] = video_data['snippet']['description']
@@ -34,7 +34,8 @@ def get_youtube_datas(youtube, df, video_ids):
         temp['viewCount'] = video_data['statistics']['viewCount']
         temp['likeCount'] = video_data['statistics']['likeCount']
         temp['commentCount'] = video_data['statistics']['commentCount']
-        df.loc[id] = temp
+        temp_df = pd.DataFrame(temp)
+        df = pd.concat([df, temp_df],ignore_index=True)
 
     return video_ids
 

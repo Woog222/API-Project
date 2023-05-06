@@ -27,6 +27,8 @@ columns = [
     'commentCount'
 ]
 
+
+
 if __name__ == "__main__":
 
     credentials = service_account.Credentials.from_service_account_file(
@@ -34,6 +36,8 @@ if __name__ == "__main__":
     # Run the OAuth flow to obtain credentials
     youtube = build(KBS.API_SERVICE_NAME, KBS.API_VERSION, credentials=credentials)
 
-    df = pd.read_csv(KBS.DATA_PATH, index_col= KBS.INDEX_COL)
+    df = pd.read_csv(KBS.DATA_PATH)
+
+
     update(youtube, df)
-    df.to_csv(KBS.DATA_PATH, index_label=KBS.INDEX_COL)
+    df.to_csv(KBS.DATA_PATH, index=False)
