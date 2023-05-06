@@ -28,16 +28,19 @@ columns = [
 ]
 
 
-
 if __name__ == "__main__":
 
     credentials = service_account.Credentials.from_service_account_file(
         os.path.join('info', 'service_account_key.json'), scopes=KBS.scopes)
     # Run the OAuth flow to obtain credentials
     youtube = build(KBS.API_SERVICE_NAME, KBS.API_VERSION, credentials=credentials)
+    try:
+        df = pd.read_csv(KBS.DATA_PATH)
+    except:
+        df = pd.DataFrame(columns=KBS.COLUMNS)
 
-    df = pd.read_csv(KBS.DATA_PATH)
-
+    print(df.columns)
 
     update(youtube, df)
+    print(df.head())
     df.to_csv(KBS.DATA_PATH, index=False)
