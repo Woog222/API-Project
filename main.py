@@ -25,6 +25,7 @@ if __name__ == "__main__":
     except:
         df = pd.DataFrame(columns=KBS.COLUMNS)
 
+    print(df.info())
 
     new_df = get_data(youtube, df, num_results = num_results)
     df = pd.concat([df, new_df], ignore_index=True)
