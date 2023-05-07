@@ -11,6 +11,7 @@ from kbs.parser import arg_parse
 
 def current_time():
     now = datetime.now()  # Get current date and time
+    now = now + timedelta(hours=9)
     return now.strftime("%m%d_%H%M%S")
 
 if __name__ == "__main__":
