@@ -9,7 +9,9 @@ from kbs.data_updater import get_data
 from kbs.data_fetcher import *
 from kbs.parser import arg_parse
 
-
+def current_time():
+    now = datetime.now()  # Get current date and time
+    return now.strftime("%m%d_%H%M%S")
 
 if __name__ == "__main__":
 
@@ -36,7 +38,8 @@ if __name__ == "__main__":
 
     ## with new data
     new_df = get_data(youtube, df, num_results = num_results)
-    print(f"{df.shape[0]}(existing) + {new_df.shape[0]-df.shape[0]}(new) = {new_df.shape[0]} received.")
+    with open(os.path.join("data", "log.txt"), "a") as log:
+        log.write(f"{meta.shape[0]:8}(existing) + {new_df.shape[0]-meta.shape[0]:8}(new) = {new_df.shape[0]:8} received. ({current_time()})\n")
 
     df = pd.concat([df, new_df[KBS.COLUMNS]], ignore_index=True)
     df.to_csv(KBS.DATA_PATH, index=False)

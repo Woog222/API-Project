@@ -44,19 +44,19 @@ def get_youtube_datas(youtube, df, video_ids):
     return df
 
 
-def get_video_ids(youtube, numResults=30):
+def get_video_ids(cur_ids, youtube, numResults=30):
 
     uploads_playlist_id = get_upload_list_id(youtube)
 
     # Retrieve the most recent videos uploaded to the channel
+    video_ids = []
+
     playlist_items = youtube.playlistItems().list(
         part='contentDetails',
         playlistId=uploads_playlist_id,
         maxResults=numResults  # Set the number of videos to retrieve
     ).execute()
 
-    # Extract the relevant information from each video
-    video_ids = []
     for item in playlist_items['items']:
         video_ids.append(item['contentDetails']['videoId'])
 
