@@ -1,4 +1,7 @@
-data/
+data/*
 .idea/
-info/
+info/*
 kbs/__pycache__
+
+!info/.gitkeep
+!data/.gitkeep
