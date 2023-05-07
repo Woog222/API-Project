@@ -13,6 +13,8 @@ def convert_time(publishedAt):
 
 def get_youtube_datas(youtube, df, video_ids):
 
+    df = pd.DataFrame(columns = KBS.COLUMNS)
+
     for id in video_ids:
         response = youtube.videos().list(
             part="snippet,contentDetails,statistics",
@@ -35,9 +37,8 @@ def get_youtube_datas(youtube, df, video_ids):
         temp['likeCount'] = video_data['statistics']['likeCount']
         temp['commentCount'] = video_data['statistics']['commentCount']
         temp_df = pd.DataFrame(temp, index=[0])
-        print(temp_df.columns)
         df = pd.concat([df, temp_df], ignore_index=True)
-
+    return df
 
 
 def get_video_ids(youtube, numResults=30):
