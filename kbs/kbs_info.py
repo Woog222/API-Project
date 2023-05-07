@@ -8,6 +8,13 @@ CHANNEL_ID = "UCcQTRi69dsVYHN3exePtZ1A"
 INDEX_COL = 'videoId'
 COLUMNS = [
     'videoId',
+    'viewCount',
+    'likeCount',
+    'commentCount'
+]
+
+META_COLUMNS = [
+    'videoId',
     'publishedAt',
     'title',
     'description',
@@ -16,9 +23,6 @@ COLUMNS = [
     'dimension',
     'definition',
     'caption',
-    'contentRating',
-    'viewCount',
-    'likeCount',
-    'commentCount'
 ]
 DATA_PATH = os.path.join('data', 'data.csv')
+META_PATH = os.path.join('data', 'meta.csv')

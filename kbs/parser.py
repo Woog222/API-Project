@@ -14,7 +14,7 @@ def arg_parse():
     parser = argparse.ArgumentParser()
 
     # add -n argument with default value of 100
-    parser.add_argument("-n", "--number", dest="num_results", type=int, default=100,
+    parser.add_argument("-n", "--number", dest="num_results", type=int, default=50,
                         help="the positive integer value (default: 100)")
 
     # parse the arguments

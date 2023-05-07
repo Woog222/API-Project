@@ -32,7 +32,6 @@ def get_youtube_datas(youtube, df, video_ids):
         temp['dimension'] = video_data['contentDetails']['dimension']
         temp['definition'] = video_data['contentDetails']['definition']
         temp['caption'] = video_data['contentDetails']['caption']
-        temp['contentRating'] = video_data['contentDetails']['contentRating']
         temp['viewCount'] = video_data['statistics']['viewCount']
         temp['likeCount'] = video_data['statistics']['likeCount']
         temp['commentCount'] = video_data['statistics']['commentCount']
