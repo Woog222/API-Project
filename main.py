@@ -36,6 +36,7 @@ if __name__ == "__main__":
 
     ## with new data
     new_df = get_data(youtube, df, num_results = num_results)
+    print(f"{df.shape[0]}(existing) + {new_df.shape[0]-df.shape[0]}(new) = {new_df.shape[0]} received.")
 
     df = pd.concat([df, new_df[KBS.COLUMNS]], ignore_index=True)
     df.to_csv(KBS.DATA_PATH, index=False)
@@ -47,3 +48,4 @@ if __name__ == "__main__":
     for id in new_ids:
         meta.loc[id] = meta_new.loc[id]
     meta.to_csv(KBS.META_PATH, index_label='videoId')
+

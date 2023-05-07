@@ -2,6 +2,7 @@ import kbs.kbs_info as KBS
 from datetime import datetime, timedelta
 import pytz
 import pandas as pd
+from tqdm import tqdm
 
 
 def convert_time(publishedAt):
@@ -13,30 +14,33 @@ def convert_time(publishedAt):
 
 def get_youtube_datas(youtube, df, video_ids):
 
+    batch_size= 50
+    id_chunks = [video_ids[i:i + batch_size] for i in range(0, len(video_ids), batch_size)]
     df = pd.DataFrame(columns = KBS.COLUMNS)
 
-    for id in video_ids:
+    for ids in tqdm(id_chunks):
         response = youtube.videos().list(
             part="snippet,contentDetails,statistics",
-            id=id
+            id=','.join(ids)
         ).execute()
 
-        video_data = response['items'][0]
-        temp = {}
-        temp['videoId'] = id
-        temp['publishedAt'] = convert_time(video_data['snippet']['publishedAt'])
-        temp['title'] = video_data['snippet']['title']
-        temp['description'] = video_data['snippet']['description']
-        temp['categoryId'] = video_data['snippet']['categoryId']
-        temp['duration'] = video_data['contentDetails']['duration']
-        temp['dimension'] = video_data['contentDetails']['dimension']
-        temp['definition'] = video_data['contentDetails']['definition']
-        temp['caption'] = video_data['contentDetails']['caption']
-        temp['viewCount'] = video_data['statistics']['viewCount']
-        temp['likeCount'] = video_data['statistics']['likeCount']
-        temp['commentCount'] = video_data['statistics']['commentCount']
-        temp_df = pd.DataFrame(temp, index=[0])
-        df = pd.concat([df, temp_df], ignore_index=True)
+        for video_data in response['items']:
+            temp = {}
+
+            temp['videoId'] = video_data['id']
+            temp['publishedAt'] = convert_time(video_data['snippet']['publishedAt'])
+            temp['title'] = video_data['snippet']['title']
+            temp['description'] = video_data['snippet']['description']
+            temp['categoryId'] = video_data['snippet']['categoryId']
+            temp['duration'] = video_data['contentDetails']['duration']
+            temp['dimension'] = video_data['contentDetails']['dimension']
+            temp['definition'] = video_data['contentDetails']['definition']
+            temp['caption'] = video_data['contentDetails']['caption']
+            temp['viewCount'] = video_data['statistics']['viewCount']
+            temp['likeCount'] = video_data['statistics']['likeCount']
+            temp['commentCount'] = video_data['statistics']['commentCount']
+            temp_df = pd.DataFrame(temp, index=[0])
+            df = pd.concat([df, temp_df], ignore_index=True)
     return df
 
 
