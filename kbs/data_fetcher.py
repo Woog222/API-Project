@@ -12,7 +12,7 @@ def convert_time(publishedAt):
     return kst_time.strftime("%Y-%m-%d %H:%M:%S")
 
 
-def get_youtube_datas(youtube, df, video_ids):
+def get_youtube_datas(youtube, video_ids):
 
     batch_size= 50
     id_chunks = [video_ids[i:i + batch_size] for i in range(0, len(video_ids), batch_size)]
