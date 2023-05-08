@@ -3,6 +3,7 @@ data/*
 info/*
 kbs/__pycache__
 test.py
+**/__pycache__/
 
 !info/.gitkeep
 !data/.gitkeep
