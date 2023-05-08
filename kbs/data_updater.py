@@ -7,7 +7,7 @@ from kbs.data_fetcher import *
 
 def get_data(youtube, df, num_results):
 
-    video_ids = df['videoId'].to_list()
+    video_ids = df.index.to_list()
     new_ids = get_video_ids( video_ids ,youtube, numResults=num_results)
 
     video_ids.extend(new_ids)
