@@ -38,7 +38,7 @@ if __name__ == "__main__":
         meta.set_index('videoId', inplace=True)
 
     ## with new data
-    new_df = get_data(youtube, df, num_results = num_results)
+    new_df = get_data(youtube, meta, num_results = num_results)
     new_df['time'] = cur_time
     with open(os.path.join("data", "log.txt"), "a") as log:
         log.write(f"{meta.shape[0]:8}(existing) + {new_df.shape[0]-meta.shape[0]:8}(new) = {new_df.shape[0]:8} received. ({cur_time})\n")
