@@ -44,7 +44,7 @@ def get_youtube_datas(youtube, video_ids):
     return df
 
 
-def get_video_ids(cur_ids, youtube, numResults=30):
+def get_video_ids(youtube, numResults=50):
 
     uploads_playlist_id = get_upload_list_id(youtube)
 
