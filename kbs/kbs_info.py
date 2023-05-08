@@ -10,7 +10,8 @@ COLUMNS = [
     'videoId',
     'viewCount',
     'likeCount',
-    'commentCount'
+    'commentCount',
+    'time'
 ]
 
 META_COLUMNS = [
@@ -24,5 +25,5 @@ META_COLUMNS = [
     'definition',
     'caption',
 ]
-DATA_PATH = os.path.join('data', 'data.csv')
+DATA_PATH = os.path.join('data', 'data_time.csv')
 META_PATH = os.path.join('data', 'meta.csv')

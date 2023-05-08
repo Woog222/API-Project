@@ -24,7 +24,7 @@ if __name__ == "__main__":
     credentials = service_account.Credentials.from_service_account_file(
         os.path.join('info', 'service_account_key.json'), scopes=KBS.scopes)
     youtube = build(KBS.API_SERVICE_NAME, KBS.API_VERSION, credentials=credentials)
-
+    cur_time = current_time()
     ## load current dataframe
     try:
         df = pd.read_csv(KBS.DATA_PATH)
@@ -39,8 +39,9 @@ if __name__ == "__main__":
 
     ## with new data
     new_df = get_data(youtube, df, num_results = num_results)
+    new_df['time'] = cur_time
     with open(os.path.join("data", "log.txt"), "a") as log:
-        log.write(f"{meta.shape[0]:8}(existing) + {new_df.shape[0]-meta.shape[0]:8}(new) = {new_df.shape[0]:8} received. ({current_time()})\n")
+        log.write(f"{meta.shape[0]:8}(existing) + {new_df.shape[0]-meta.shape[0]:8}(new) = {new_df.shape[0]:8} received. ({cur_time})\n")
 
     df = pd.concat([df, new_df[KBS.COLUMNS]], ignore_index=True)
     df.to_csv(KBS.DATA_PATH, index=False)
