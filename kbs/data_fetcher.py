@@ -38,7 +38,10 @@ def get_youtube_datas(youtube, video_ids):
             temp['caption'] = video_data['contentDetails']['caption']
             temp['viewCount'] = video_data['statistics']['viewCount']
             temp['likeCount'] = video_data['statistics']['likeCount']
-            temp['commentCount'] = video_data['statistics']['commentCount']
+            try:
+                temp['commentCount'] = video_data['statistics']['commentCount']
+            except:
+                temp['commentCount'] = -1
             temp_df = pd.DataFrame(temp, index=[0])
             df = pd.concat([df, temp_df], ignore_index=True)
     return df
